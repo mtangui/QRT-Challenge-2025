@@ -1,0 +1,92 @@
+API can be run using this command:
+uvicorn Tangui_MICHAL_Projet.api.app:app --reload
+
+To send a request for a prediction:
+curl -X 'POST' \
+  'http://127.0.0.1:8000/predict/?model_type=gbsa' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "maf_df_data":    {
+    "ID": List[str]
+    "CHR": List[str]
+    "START": List[float]
+    "END": List[float]
+    "REF": List[str]
+    "ALT": List[str]
+    "GENE": List[str]
+    "PROTEIN_CHANGE": List[str]
+    "EFFECT": List[str]
+    "VAF": List[float]
+    "DEPTH": List[float]
+  },
+  "df_clinical_data":    {
+    "ID": List[str]
+    "CENTER": List[str]
+    "BM_BLAST": List[float]
+    "WBC": List[float]
+    "ANC": List[float]
+    "MONOCYTES": List[float]
+    "HB": List[float]
+    "PLT": List[float]
+    "CYTOGENETICS": List[str]
+    }
+}
+
+
+-------------------------------------------
+
+Input examples:
+* {
+  "maf_df_data":    {
+      "ID": ["P100160"],
+      "CHR": ["15"],
+      "START": [90631934.0],
+      "END": [90631934.0],
+      "REF": ["C"],
+      "ALT": ["T"],
+      "GENE": ["IDH2"],
+      "PROTEIN_CHANGE": ["p.R140Q"],
+      "EFFECT": ["non_synonymous_codon"],
+      "VAF": [0.489],
+      "DEPTH": [1302.0]
+    },
+    "df_clinical_data":    {
+      "ID": ["P118515"],
+      "CENTER": ["ROM"],
+      "BM_BLAST": [17.0],
+      "WBC": [3.5],
+      "ANC": [1.4],
+      "MONOCYTES": [0.35],
+      "HB": [6.8],
+      "PLT": [67.0],
+      "CYTOGENETICS": ["tris8"]
+    }
+}
+
+* {
+  "maf_df_data":    {
+      "ID": ["P100160", "KFE4512", "KFE4512"],
+      "CHR": ["15", "16", "X"],
+      "START": [90631934.0, 90632542.0, 90645542],
+      "END": [90631934.0, 90632565.0, 90645545],
+      "REF": ["C", "G", "A"],
+      "ALT": ["T", "A", "C"],
+      "GENE": ["IDH2", "CSF3R", "CBL"],
+      "PROTEIN_CHANGE": ["p.R140Q", "p.T618I", "p.R420L"],
+      "EFFECT": ["non_synonymous_codon", "stop_gained", "frameshift_variant"],
+      "VAF": [0.489, 0.596, 0.183],
+      "DEPTH": [1302.0, 506.0, 842.0]
+    },
+    "df_clinical_data":    {
+      "ID": ["P100160", "KFE4512"],
+      "CENTER": ["ROM", "KYW"],
+      "BM_BLAST": [17.0, 15.0],
+      "WBC": [3.5, 2.8],
+      "ANC": [1.4, 1.28],
+      "MONOCYTES": [0.35, 0.43],
+      "HB": [6.8, 5.9],
+      "PLT": [67.0, 43.0],
+      "CYTOGENETICS": ["tris8", "45, XY, -7, del(12)(p?) [13]/46, idem, +mar1 [7]"]
+    }
+}
